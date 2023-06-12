@@ -15,7 +15,7 @@ const getAllProduct = (req, res) => {
 // selected product by id
 const getProduct = (req, res) => {
   const productId = req.params.productId;
-  const setQueryProduct = "SELECT * FROM products WHERE products_id=?";
+  const setQueryProduct = "SELECT * FROM products WHERE product_id=?";
   db.query(setQueryProduct, productId, (err, field) => {
     console.log(field);
     if (err) {
@@ -45,7 +45,7 @@ const newProduct = (req, res) => {
         res.status(201).json({
           massage: "post new product success",
           data: {
-            products_id: field.insertId,
+            product_id: field.insertId,
             name: name,
             description: description,
             price: price,

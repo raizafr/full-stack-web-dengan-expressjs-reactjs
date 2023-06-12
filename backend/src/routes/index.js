@@ -18,8 +18,8 @@ router.get("/api/v1/auth/user", verifyToken, getUser);
 
 // products
 router.get("/api/v1/products", getAllProduct);
-router.get("/api/v1/product/:productId", getProduct);
-router.post("/api/v1/product", newProduct);
-router.put("/api/v1/product/:productId", editProduct);
+router.get("/api/v1/products/:productId", getProduct);
+router.post("/api/v1/products", newProduct);
+router.put("/api/v1/products/:productId", editProduct);
 
 module.exports = router;
