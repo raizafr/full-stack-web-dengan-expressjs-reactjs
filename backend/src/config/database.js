@@ -1,17 +1,6 @@
-const mysql = require("mysql");
-
-const db = mysql.createConnection({
+import { Sequelize } from "sequelize";
+const db = new Sequelize("e-commerce", "root", "", {
   host: "localhost",
-  user: "root",
-  password: "",
-  database: "e-commerce",
+  dialect: "mysql",
 });
-
-db.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  console.log("connect to database");
-});
-
-module.exports = db;
+export default db;
