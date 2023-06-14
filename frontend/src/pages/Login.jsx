@@ -1,33 +1,26 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
     try {
-      await axios
-        .post("http://localhost:3000/api/v1/auth/login", {
-          email: email,
-          password: password,
-        })
-        .then(function (res) {
-          console.log(res);
-          toast.success(res.data.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        })
-        .catch(function (err) {
-          console.log(err);
-          toast.error(err.response.data.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        });
+      const res = await axios.post("http://localhost:3000/api/v1/auth/login", {
+        email: email,
+        password: password,
+      });
+      navigate("/");
+      toast.success(res.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 

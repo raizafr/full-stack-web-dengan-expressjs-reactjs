@@ -12,26 +12,23 @@ const Register = () => {
     const password = e.target[2].value;
     const confirmPasword = e.target[3].value;
     try {
-      await axios
-        .post("http://localhost:3000/api/v1/auth/register", {
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/auth/register",
+        {
           username: username,
           email: email,
           password: password,
           confirm_password: confirmPasword,
-        })
-        .then(function (res) {
-          navigate("/login");
-          toast.success(res.data.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        })
-        .catch(function (err) {
-          toast.error(err.response.data.message, {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        });
+        }
+      );
+      navigate("/login");
+      toast.success(res.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   return (
