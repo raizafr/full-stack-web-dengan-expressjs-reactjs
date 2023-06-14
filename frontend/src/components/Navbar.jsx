@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsList } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const handleClick = () => {
     const open = document.getElementById("open");
     const close = document.getElementById("close");
@@ -15,10 +16,8 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const logout = await axios.delete(
-        "http://localhost:3000/api/v1/auth/logout"
-      );
-      console.log(logout);
+      await axios.delete("http://localhost:3000/api/v1/auth/logout");
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }

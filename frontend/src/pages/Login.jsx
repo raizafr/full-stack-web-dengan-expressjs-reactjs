@@ -1,9 +1,7 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
-import { useCookies } from "react-cookie";
+import { useContext } from "react";
 
 const Login = () => {
   const handleSubmit = async (e) => {
