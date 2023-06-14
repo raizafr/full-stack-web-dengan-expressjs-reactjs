@@ -5,6 +5,8 @@ import Users from "../model/Users.js";
 // controller getdata user
 export const getUser = async (req, res) => {
   try {
+    const auth = req.headers.authorization;
+    console.log(auth);
     const userId = req.userId;
     let user = await Users.findOne({ where: { user_id: userId } });
     delete user.password;
@@ -13,6 +15,7 @@ export const getUser = async (req, res) => {
       user_id: user.user_id,
       username: user.username,
       email: user.email,
+      is_active: true,
     });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
@@ -74,7 +77,7 @@ export const login = async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
       })
-      .json({ session: accessToken });
+      .json({ message: "login success", session: accessToken });
   } catch (err) {
     console.log(err);
   }

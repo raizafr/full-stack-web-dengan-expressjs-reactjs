@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { BsList } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
+import axios from "axios";
 
 const Navbar = () => {
   const handleClick = () => {
@@ -11,6 +12,18 @@ const Navbar = () => {
     close.classList.toggle("hidden");
     navMobile.classList.toggle("hidden");
   };
+
+  const handleLogout = async () => {
+    try {
+      const logout = await axios.delete(
+        "http://localhost:3000/api/v1/auth/logout"
+      );
+      console.log(logout);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <nav className="flex justify-between bg-[#689F38] md:px-20 px-4 py-4 font-bold text-white hover:bg-[#8BC34A] transition-colors sticky top-0">
@@ -24,6 +37,9 @@ const Navbar = () => {
         <ul className="md:flex space-x-3 hidden ">
           <li className="hover:text-[#f5ff3a]">
             <Link to={"/"}>Home</Link>
+          </li>
+          <li className="hover:text-[#f5ff3a]">
+            <Link onClick={handleLogout}>Logout</Link>
           </li>
           <li className="hover:text-[#f5ff3a]">
             <Link to={"/login"}>Login</Link>
