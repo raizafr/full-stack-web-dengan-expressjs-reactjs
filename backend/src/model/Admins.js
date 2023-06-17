@@ -1,10 +1,10 @@
 import { DataTypes } from "sequelize";
 import db from "../config/database.js";
 
-const Users = db.define(
-  "Users",
+const Admins = db.define(
+  "Admins",
   {
-    userId: {
+    admin_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -22,18 +22,10 @@ const Users = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    otpCode: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    otpExpiresAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
   },
   {
-    tableName: "Users",
+    tableName: "Admins",
   }
 );
 
-export default Users;
+export default Admins;

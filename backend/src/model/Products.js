@@ -1,39 +1,38 @@
 import { DataTypes } from "sequelize";
 import db from "../config/database.js";
 
-const Users = db.define(
-  "Users",
+const Products = db.define(
+  "Products",
   {
-    userId: {
+    productId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    productName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
+    price: {
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
-    otpCode: {
+    description: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-    otpExpiresAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
+    category: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
-    tableName: "Users",
+    tableName: "Products",
   }
 );
 
-export default Users;
+export default Products;
