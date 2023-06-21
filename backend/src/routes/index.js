@@ -1,5 +1,11 @@
 import express from "express";
-import { register, logout, getUser, login } from "../controllers/users.js";
+import {
+  register,
+  logout,
+  getUser,
+  login,
+  verifyOtp,
+} from "../controllers/users.js";
 import verifyToken from "../middleware/verifyToken.js";
 import {
   getAdmin,
@@ -15,17 +21,11 @@ import {
   newProduct,
 } from "../controllers/products.js";
 
-// const {
-//   newProduct,
-//   getAllProduct,
-//   editProduct,
-//   getProduct,
-// } = require("../controllers/products");
-
 const router = express();
 
 // users
 router.post("/api/v1/auth/register", register);
+router.post("/api/v1/auth/verifyOtp", verifyOtp);
 router.post("/api/v1/auth/login", login);
 router.delete("/api/v1/auth/logout", logout);
 router.get("/api/v1/auth/user", verifyToken, getUser);

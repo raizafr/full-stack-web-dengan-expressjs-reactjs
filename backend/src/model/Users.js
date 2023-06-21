@@ -26,8 +26,8 @@ const Users = db.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    otpExpiresAt: {
-      type: DataTypes.DATE,
+    otpConfirmed: {
+      type: DataTypes.BOOLEAN,
       allowNull: true,
     },
   },
