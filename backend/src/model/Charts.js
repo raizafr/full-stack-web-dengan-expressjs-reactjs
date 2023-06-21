@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/database.js";
-
+import Users from "./Users.js";
+import Products from "./Products.js";
 const Charts = db.define(
   "Charts",
   {
@@ -15,18 +16,14 @@ const Charts = db.define(
     },
     productId: {
       type: DataTypes.INTEGER,
-      allowNullL: false,
+      allowNull: false,
     },
-    productName: {
-      type: DataTypes.STRING,
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     price: {
       type: DataTypes.BIGINT,
-      allowNull: false,
-    },
-    category: {
-      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
@@ -35,4 +32,7 @@ const Charts = db.define(
   }
 );
 
-export default Charts;
+Charts.belongsTo(Users, { foreignKey: 'userId' });
+Charts.belongsTo(Products, { foreignKey: 'productId' });
+
+export default Products;

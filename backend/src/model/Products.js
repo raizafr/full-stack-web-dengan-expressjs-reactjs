@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/database.js";
+import Users from "./Users.js";
 
 const Products = db.define(
   "Products",
@@ -34,5 +35,8 @@ const Products = db.define(
     tableName: "Products",
   }
 );
+
+Products.belongsTo(Users, { foreignKey: "userId" });
+Users.hasMany(Products, { foreignKey: "userId" });
 
 export default Products;
