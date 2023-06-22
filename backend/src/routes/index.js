@@ -14,6 +14,7 @@ import {
   getProducts,
   newProduct,
 } from "../controllers/products.js";
+import { upload } from "../controllers/upload/uploadProduct.js";
 
 const router = express();
 
@@ -24,11 +25,10 @@ router.post("/api/v1/auth/login", login);
 router.delete("/api/v1/auth/logout", logout);
 router.get("/api/v1/auth/user", verifyToken, getUser);
 
-
 // products
 router.get("/api/v1/products", getProducts);
 router.get("/api/v1/products/:productId", getProducts);
-router.post("/api/v1/products", newProduct);
+router.post("/api/v1/products", upload.single("file"), newProduct);
 router.put("/api/v1/products/:productId", editProduct);
 router.delete("/api/v1/products/:productId", deleteProduct);
 

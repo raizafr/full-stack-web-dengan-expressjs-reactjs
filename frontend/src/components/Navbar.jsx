@@ -2,8 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsList } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   const navigate = useNavigate();
   const handleClick = () => {
     const open = document.getElementById("open");
@@ -34,18 +38,25 @@ const Navbar = () => {
           <IoMdClose className="scale-125 hidden" id="close" />
         </div>
         <ul className="md:flex space-x-3 hidden ">
-          <li className="hover:text-[#f5ff3a]">
-            <Link to={"/"}>Home</Link>
-          </li>
-          <li className="hover:text-[#f5ff3a]">
-            <Link onClick={handleLogout}>Logout</Link>
-          </li>
-          <li className="hover:text-[#f5ff3a]">
-            <Link to={"/login"}>Login</Link>
-          </li>
-          <li className="hover:text-[#f5ff3a]">
-            <Link to={"/register"}>Register</Link>
-          </li>
+          {currentUser ? (
+            <>
+              <li className="hover:text-[#f5ff3a]">
+                <Link to={"/"}>Home</Link>
+              </li>
+              <li className="hover:text-[#f5ff3a]">
+                <Link onClick={handleLogout}>Logout</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="hover:text-[#f5ff3a]">
+                <Link to={"/login"}>Login</Link>
+              </li>
+              <li className="hover:text-[#f5ff3a]">
+                <Link to={"/register"}>Register</Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
       <ul

@@ -1,23 +1,31 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
+  const { setCurrentUser } = useContext(AuthContext);
+  useEffect(() => {
+    setCurrentUser(false);
+  }, [setCurrentUser]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
     try {
       const res = await axios.post("http://localhost:3000/api/v1/auth/login", {
-        email: email,
-        password: password,
+        email,
+        password,
       });
       navigate("/");
       toast.success(res.data.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
     } catch (err) {
+      console.log(err);
       toast.error(err.response.data.message, {
         position: toast.POSITION.TOP_RIGHT,
       });

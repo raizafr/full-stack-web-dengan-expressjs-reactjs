@@ -1,6 +1,5 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import Products from "../model/Products.js";
+import { upload } from "./upload/uploadProduct.js";
 
 // controller getdata all product
 export const getProducts = async (req, res) => {
@@ -32,9 +31,10 @@ export const getProduct = async (req, res) => {
 
 // controller post new product
 export const newProduct = async (req, res) => {
-  const { productName, price, description, category, imageUrl } = req.body;
+  const { productName, price, description, category } = req.body;
+  console.log(upload);
 
-  if (!productName || !price || !description || !category || !imageUrl) {
+  if (!productName || !price || !description || !category) {
     return res.status(400).json({ message: "bad request" });
   }
   if (isNaN(price))

@@ -10,14 +10,6 @@ const Charts = db.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    productId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -32,7 +24,7 @@ const Charts = db.define(
   }
 );
 
-Charts.belongsTo(Users, { foreignKey: 'userId' });
-Charts.belongsTo(Products, { foreignKey: 'productId' });
+Charts.belongsTo(Users, { foreignKey: "userId" });
+Charts.belongsTo(Products, { foreignKey: "productId" });
 
-export default Products;
+export default Charts;

@@ -76,6 +76,7 @@ export const register = async (req, res) => {
       email,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "internal server error" });
   }
 };

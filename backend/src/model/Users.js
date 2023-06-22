@@ -24,7 +24,7 @@ const Users = db.define(
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     otpCode: {
       type: DataTypes.STRING,
