@@ -153,7 +153,7 @@ const Profile = () => {
                 Home
               </Link>
               <button className="hover:shadow-form rounded-md bg-[#1B4397] hover:bg-[#3268db] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                Change Data
+                Change
               </button>
             </div>
           </form>

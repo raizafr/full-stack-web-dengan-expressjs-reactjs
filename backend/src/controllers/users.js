@@ -178,6 +178,40 @@ export const editUserProfile = async (req, res) => {
   }
 };
 
+// controller change password
+export const changeUserPassword = async (req, res) => {
+  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+  const userId = req.userId;
+  try {
+    const user = await Users.findByPk(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const comparePassword = await bcrypt.compare(
+      currentPassword,
+      user.dataValues.password
+    );
+
+    if (!comparePassword) {
+      return res
+        .status(400)
+        .json({ message: "The current password is incorrect" });
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).json({ message: "passwords are not the same" });
+    }
+
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(newPassword, salt);
+    await user.update({
+      password: hashPassword,
+    });
+    res.status(200).json({ message: "Password changed" });
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 // controller logout
 export const logout = (req, res) => {
   res.clearCookie("access_token");

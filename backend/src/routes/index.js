@@ -6,6 +6,7 @@ import {
   login,
   verifyOtp,
   editUserProfile,
+  changeUserPassword,
 } from "../controllers/users.js";
 import verifyToken from "../middleware/verifyToken.js";
 
@@ -23,6 +24,7 @@ router.post("/api/v1/auth/register", register);
 router.post("/api/v1/auth/verifyOtp", verifyOtp);
 router.post("/api/v1/auth/login", login);
 router.put("/api/v1/auth/editProfile", verifyToken, editUserProfile);
+router.put("/api/v1/auth/changePassword", verifyToken, changeUserPassword);
 router.delete("/api/v1/auth/logout", logout);
 router.get("/api/v1/auth/user", verifyToken, getUser);
 

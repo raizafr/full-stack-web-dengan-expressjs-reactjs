@@ -3,6 +3,7 @@ import { SlWallet } from "react-icons/sl";
 import { GrTransaction, GrUnorderedList } from "react-icons/gr";
 import { AiOutlineHistory } from "react-icons/ai";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 import { useContext, useState } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import LogoutModal from "./LogoutModal";
@@ -60,9 +61,13 @@ const ModalProfile = () => {
               <Link to={"/profile"} className="flex gap-2 hover:text-blue-400">
                 <BsPersonGear className="scale-125 mt-1" /> My Account
               </Link>
-              <div className="flex gap-2">
-                <SlWallet className="scale-125 mt-1" /> Top Up
-              </div>
+              <Link
+                to={"/changePassword"}
+                className="flex gap-2 hover:text-blue-400"
+              >
+                <RiLockPasswordLine className="scale-125 mt-1" /> Change
+                Password
+              </Link>
               <div className="flex gap-2">
                 <GrTransaction className="scale-125 mt-1" /> My Transaction
               </div>

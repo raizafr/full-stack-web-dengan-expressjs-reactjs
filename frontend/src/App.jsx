@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ConfirmOtp from "./pages/ConfirmOtp";
 import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/confirmOtp" element={<ConfirmOtp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/changePassword" element={<ChangePassword />} />
         </Routes>
       </>
     </>
