@@ -1,5 +1,4 @@
 import Products from "../model/Products.js";
-import { upload } from "./upload/uploadProduct.js";
 
 // controller getdata all product
 export const getProducts = async (req, res) => {

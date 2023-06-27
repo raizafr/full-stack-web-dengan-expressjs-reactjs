@@ -22,7 +22,7 @@ app.use(router);
 
 const syncDatabase = async () => {
   try {
-    await db.sync({ force: true });
+    await db.sync({ force: false });
     console.log("Connection has been established successfully");
   } catch (error) {
     console.error("Unable to connect to the database:", error);

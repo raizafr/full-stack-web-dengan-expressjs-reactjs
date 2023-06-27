@@ -2,10 +2,10 @@ import { DataTypes } from "sequelize";
 import db from "../config/database.js";
 import Users from "./Users.js";
 import Products from "./Products.js";
-const Charts = db.define(
-  "Charts",
+const Carts = db.define(
+  "Carts",
   {
-    chartId: {
+    cartId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -20,11 +20,11 @@ const Charts = db.define(
     },
   },
   {
-    tableName: "Charts",
+    tableName: "Carts",
   }
 );
 
-Charts.belongsTo(Users, { foreignKey: "userId" });
-Charts.belongsTo(Products, { foreignKey: "productId" });
+Carts.belongsTo(Users, { foreignKey: "userId" });
+Carts.belongsTo(Products, { foreignKey: "productId" });
 
-export default Charts;
+export default Carts;

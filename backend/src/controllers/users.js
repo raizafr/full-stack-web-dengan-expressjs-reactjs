@@ -13,9 +13,10 @@ export const getUser = async (req, res) => {
     res.status(200).json({
       message: "Get data user",
       userId: user.userId,
+      firstName: user.firstName,
+      lastName: user.lastName,
       username: user.username,
       email: user.email,
-      isActive: true,
     });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
@@ -24,8 +25,9 @@ export const getUser = async (req, res) => {
 
 // controller register
 export const register = async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
-  if (!username || !email || !password) {
+  const { firstName, lastName, username, email, password, confirmPassword } =
+    req.body;
+  if (!firstName || !lastName || !username || !email || !password) {
     return res.status(400).json({ message: "bad request" });
   }
 
@@ -65,6 +67,8 @@ export const register = async (req, res) => {
     });
 
     await Users.create({
+      firstName,
+      lastName,
       username,
       email,
       password: hashPassword,
@@ -148,6 +152,29 @@ export const login = async (req, res) => {
       .json({ message: "login success", session: accessToken });
   } catch (err) {
     console.log(err);
+  }
+};
+
+// controller editUser
+
+export const editUserProfile = async (req, res) => {
+  const { firstName, lastName, username, email } = req.body;
+  const userId = req.userId;
+  if (!firstName || !lastName || !username || !email) {
+    return res.status(400).json({ message: "bad request" });
+  }
+  try {
+    const user = await Users.findByPk(userId);
+    if (!user) return res.status(404).json({ message: "user not found" });
+    await user.update({
+      firstName,
+      lastName,
+      username,
+      email,
+    });
+    res.status(200).json({ message: "Profile updated" });
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

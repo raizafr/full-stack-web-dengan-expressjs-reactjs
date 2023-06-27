@@ -1,79 +1,62 @@
-import { Link, useNavigate } from "react-router-dom";
-import { BsList } from "react-icons/bs";
-import { IoMdClose } from "react-icons/io";
-import axios from "axios";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { ReactSVG } from "react-svg";
+import Logo from "../../public/assets/svg/logo.svg";
+import { AiOutlineBell, AiOutlineShoppingCart } from "react-icons/ai";
+import { GoPerson } from "react-icons/go";
+import { FiSearch } from "react-icons/fi";
+import { useState } from "react";
+import ModalProfile from "./modal/ModalProfile";
 
 const Navbar = () => {
-  const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
-  const navigate = useNavigate();
-  const handleClick = () => {
-    const open = document.getElementById("open");
-    const close = document.getElementById("close");
-    const navMobile = document.getElementById("nav-mobile");
-    open.classList.toggle("hidden");
-    close.classList.toggle("hidden");
-    navMobile.classList.toggle("hidden");
+  const [isModalProfile, setIsModalProfile] = useState(false);
+  const handleClickProfile = () => {
+    setIsModalProfile(!isModalProfile);
   };
-
-  const handleLogout = async () => {
-    try {
-      await axios.delete("http://localhost:3000/api/v1/auth/logout");
-      navigate("/login");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <>
-      <nav className="flex justify-between bg-[#689F38] md:px-20 px-4 py-4 font-bold text-white hover:bg-[#8BC34A] transition-colors sticky top-0">
-        <div className="hover:text-[#f5ff3a]">
-          <Link to={"/"}>MY WEBSITE</Link>
+    <nav>
+      <div className="flex justify-around py-4 bg-white/80 backdrop-blur-md shadow-md w-full top-0 left-0 right-0 z-10">
+        <div className="flex items-center">
+          <a className="cursor-pointer">
+            <h3 className="text-2xl font-medium text-blue-500">
+              <ReactSVG src={Logo} />
+            </h3>
+          </a>
         </div>
-        <div className="mt-1 md:hidden" onClick={handleClick}>
-          <BsList className="scale-125 " id="open" />
-          <IoMdClose className="scale-125 hidden" id="close" />
+
+        <div className="items-center hidden space-x-8 lg:flex w-2/5">
+          <form className="w-full">
+            <label
+              htmlFor="search"
+              className="flex flex-row-reverse items-center"
+            >
+              <input
+                type="text"
+                placeholder="Search something here..."
+                id="search"
+                name="search"
+                className=" w-full focus:outline-none rounded-md border px-8 py-1.5 -ml-6 focus:border-blue-400 focus:placeholder-blue-400"
+              />
+              <FiSearch className="scale-125 text-gray-400" />
+            </label>
+          </form>
         </div>
-        <ul className="md:flex space-x-3 hidden ">
-          {currentUser ? (
-            <>
-              <li className="hover:text-[#f5ff3a]">
-                <Link to={"/"}>Home</Link>
-              </li>
-              <li className="hover:text-[#f5ff3a]">
-                <Link onClick={handleLogout}>Logout</Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="hover:text-[#f5ff3a]">
-                <Link to={"/login"}>Login</Link>
-              </li>
-              <li className="hover:text-[#f5ff3a]">
-                <Link to={"/register"}>Register</Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </nav>
-      <ul
-        className="bg-[#689F38] text-white font-bold text-center space-y-1 md:hidden hidden  "
-        id="nav-mobile"
-      >
-        <li className="hover:text-[#f5ff3a]">
-          <Link to={"/"}>Home</Link>
-        </li>
-        <li className="hover:text-[#f5ff3a]">
-          <Link to={"/login"}>Login</Link>
-        </li>
-        <li className="hover:text-[#f5ff3a]">
-          <Link to={"/register"}>Register</Link>
-        </li>
-      </ul>
-    </>
+
+        <div className="flex items-center space-x-5">
+          <a className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
+            <AiOutlineShoppingCart className="scale-125" />
+          </a>
+          <a className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300 font-semibold">
+            <AiOutlineBell className="scale-125" />
+          </a>
+          <button
+            className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300 font-semibold"
+            onClick={handleClickProfile}
+          >
+            <GoPerson className="scale-125" />
+          </button>
+        </div>
+      </div>
+      {isModalProfile && <ModalProfile />}
+    </nav>
   );
 };
 

@@ -1,23 +1,25 @@
-import { ToastContainer } from "react-toastify";
-import Navbar from "./components/Navbar";
+import axios from "axios";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import axios from "axios";
+import ConfirmOtp from "./pages/ConfirmOtp";
+import Profile from "./pages/Profile";
 
 function App() {
   axios.defaults.withCredentials = true;
 
   return (
     <>
-      <Navbar />
-      <ToastContainer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      <>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/confirmOtp" element={<ConfirmOtp />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </>
     </>
   );
 }

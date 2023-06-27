@@ -1,28 +1,40 @@
+import Headroom from "react-headroom";
+import FirstSection from "../components/section/FirstSection";
+import SecondSection from "../components/section/SecondSection";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
-import { useNavigate } from "react-router";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const Home = () => {
-  const { setCurrentUser } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { currentUser, fetchDataUser } = useContext(CurrentUserContext);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/auth/user"
-        );
-        setCurrentUser(response);
-      } catch (err) {
-        if (err.response.status === 401) {
-          navigate("login");
-        }
-      }
-    };
+    fetchDataUser();
+  }, []);
+  console.log(currentUser);
+  // const { setCurrentUser } = useContext(CurrentUserContext);
 
-    fetchData();
-  }, [setCurrentUser, navigate]);
-  return <div>home</div>;
+  // useEffect(() => {
+  //   const fetchDataUser = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3000/api/v1/auth/user");
+  //       setCurrentUser(res.data);
+  //     } catch (err) {
+  //       setCurrentUser(null);
+  //     }
+  //   };
+  //   fetchDataUser();
+  // }, [setCurrentUser]);
+  return (
+    <>
+      <Headroom>
+        <Navbar />
+      </Headroom>
+      <FirstSection />
+      <SecondSection />
+      <Footer />
+    </>
+  );
 };
 
 export default Home;
