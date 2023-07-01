@@ -1,5 +1,4 @@
 import { BsPersonGear } from "react-icons/bs";
-import { SlWallet } from "react-icons/sl";
 import { GrTransaction, GrUnorderedList } from "react-icons/gr";
 import { AiOutlineHistory } from "react-icons/ai";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
@@ -27,13 +26,17 @@ const ModalProfile = () => {
           {currentUser ? (
             <>
               <img
-                src="https://placehold.co/500x500/png"
+                src={
+                  currentUser.user.imageUrl
+                    ? currentUser.user.imageUrl
+                    : "https://placehold.co/500x500/png"
+                }
                 alt=""
                 className="w-[50px] h-[50px] rounded-full"
               />
               <div className="text-white">
-                <h3 className="font-semibold">{currentUser.username}</h3>
-                <p className="font-thin">{currentUser.email}</p>
+                <h3 className="font-semibold">{currentUser.user.username}</h3>
+                <p className="font-thin">{currentUser.user.email}</p>
               </div>
             </>
           ) : (

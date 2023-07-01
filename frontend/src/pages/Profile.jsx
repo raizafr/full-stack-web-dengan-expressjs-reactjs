@@ -17,11 +17,12 @@ const Profile = () => {
     fetchDataUser();
   }, []);
   const [changeData, setChangeData] = useState({
-    firstName: currentUser.firstName,
-    lastName: currentUser.lastName,
-    username: currentUser.username,
-    email: currentUser.email,
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
   });
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setChangeData((prevFormData) => ({
@@ -37,7 +38,7 @@ const Profile = () => {
     const lastName = e.target[2].value;
     const username = e.target[3].value;
     const email = e.target[4].value;
-    console.log(image);
+    console.log(image, firstName, lastName, username, email);
 
     try {
       const res = await axios.post("https://example.com/api/upload", {
@@ -82,7 +83,7 @@ const Profile = () => {
                     First Name
                   </label>
                   <input
-                    value={changeData.firstName || currentUser.firstName}
+                    value={changeData.firstName || currentUser.user.firstName}
                     onChange={handleChange}
                     type="text"
                     name="firstName"
@@ -101,7 +102,7 @@ const Profile = () => {
                     Last Name
                   </label>
                   <input
-                    value={changeData.lastName || currentUser.lastName}
+                    value={changeData.lastName || currentUser.user.lastName}
                     onChange={handleChange}
                     type="text"
                     name="lastName"
@@ -120,7 +121,7 @@ const Profile = () => {
                 Username
               </label>
               <input
-                value={changeData.username || currentUser.username}
+                value={changeData.username || currentUser.user.username}
                 onChange={handleChange}
                 type="text"
                 name="username"
@@ -137,7 +138,7 @@ const Profile = () => {
                 Email
               </label>
               <input
-                value={changeData.email || currentUser.email}
+                value={changeData.email || currentUser.user.email}
                 onChange={handleChange}
                 type="email"
                 name="email"

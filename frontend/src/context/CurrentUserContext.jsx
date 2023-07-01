@@ -7,10 +7,12 @@ const CurrentUserContext = createContext();
 
 const CurrentUserContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
+    user: {
+      username: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+    },
   });
 
   const fetchDataUser = async () => {

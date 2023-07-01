@@ -7,11 +7,10 @@ import { useContext, useEffect } from "react";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const Home = () => {
-  const { currentUser, fetchDataUser } = useContext(CurrentUserContext);
+  const { fetchDataUser } = useContext(CurrentUserContext);
   useEffect(() => {
     fetchDataUser();
   }, []);
-  console.log(currentUser);
 
   return (
     <>

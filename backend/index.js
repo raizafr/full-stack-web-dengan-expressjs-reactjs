@@ -2,7 +2,6 @@ import express from "express";
 import db from "./src/config/database.js";
 import cors from "cors";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import router from "./src/routes/index.js";
 import { fileURLToPath } from "url";
@@ -18,8 +17,7 @@ app.use(
   })
 );
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
