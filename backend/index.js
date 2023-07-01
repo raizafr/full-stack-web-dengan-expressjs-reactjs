@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import router from "./src/routes/index.js";
+import { fileURLToPath } from "url";
+import path from "path";
 
 const app = express();
 dotenv.config();
@@ -15,8 +17,11 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use(router);
 

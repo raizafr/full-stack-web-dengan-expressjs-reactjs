@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useContext, useEffect } from "react";
 import { CurrentUserContext } from "../context/CurrentUserContext";
-import { ToastContainer } from "react-toastify";
 
 const Home = () => {
   const { currentUser, fetchDataUser } = useContext(CurrentUserContext);

@@ -9,9 +9,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
+import InputFileImage from "../components/InputFileImage";
+
 const Profile = () => {
   const { currentUser, fetchDataUser } = useContext(CurrentUserContext);
-
   useEffect(() => {
     fetchDataUser();
   }, []);
@@ -31,21 +32,21 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const firstName = e.target[0].value;
-    const lastName = e.target[1].value;
-    const username = e.target[2].value;
-    const email = e.target[3].value;
+    const image = e.target[0].files[0];
+    const firstName = e.target[1].value;
+    const lastName = e.target[2].value;
+    const username = e.target[3].value;
+    const email = e.target[4].value;
+    console.log(image);
 
     try {
-      const res = await axios.put(
-        "http://localhost:3000/api/v1/auth/editProfile",
-        {
-          firstName,
-          lastName,
-          username,
-          email,
-        }
-      );
+      const res = await axios.post("https://example.com/api/upload", {
+        image,
+        firstName,
+        lastName,
+        username,
+        email,
+      });
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -70,6 +71,7 @@ const Profile = () => {
       <div className="flex items-center justify-center p-3">
         <div className="mx-auto w-full max-w-[550px]">
           <form onSubmit={handleSubmit}>
+            <InputFileImage />
             <div className="-mx-3 flex flex-wrap">
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">

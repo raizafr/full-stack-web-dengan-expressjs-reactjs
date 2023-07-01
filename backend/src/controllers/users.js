@@ -1,22 +1,19 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import Users from "../model/Users.js";
+import Users from "../models/Users.js";
 import nodemailer from "nodemailer";
 import speakeasy from "speakeasy";
-
+import fs from "fs";
 // controller getdata user
 export const getUser = async (req, res) => {
   try {
     const userId = req.userId;
-    let user = await Users.findOne({ where: { userId: userId } });
-    delete user.password;
+    const user = await Users.findByPk(userId);
+
+    delete user.dataValues.password;
     res.status(200).json({
       message: "Get data user",
-      userId: user.userId,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username,
-      email: user.email,
+      user,
     });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
@@ -86,7 +83,7 @@ export const register = async (req, res) => {
 };
 
 // controler verify otp
-export const verifyOtp = async (req, res) => {
+export const verifyOtp = async (req, res, next) => {
   const { email, otpCode } = req.body;
   console.log(otpCode);
   if (!email || !otpCode) {
@@ -96,6 +93,7 @@ export const verifyOtp = async (req, res) => {
   try {
     const user = await Users.findOne({ where: { email } });
     if (!user) return res.status(404).json({ message: "User not found" });
+
     if (otpCode != user.dataValues.otpCode) {
       return res.status(400).json({ message: "Invalid OTP code" });
     }
@@ -107,6 +105,7 @@ export const verifyOtp = async (req, res) => {
         },
       }
     );
+
     res.status(200).json({ message: "success register" });
   } catch (err) {
     res.status(500).json({ message: "internal server error" });
@@ -134,10 +133,10 @@ export const login = async (req, res) => {
       return res.status(404).json({ message: "Wrong password" });
     }
 
-    const userId = user.dataValues.userId;
+    const id = user.dataValues.id;
     const accessToken = jwt.sign(
       {
-        userId,
+        id,
       },
       process.env.JWT_SECRET,
       {
@@ -157,23 +156,40 @@ export const login = async (req, res) => {
 
 // controller editUser
 
-export const editUserProfile = async (req, res) => {
+export const editUserProfile = async (req, res, next) => {
   const { firstName, lastName, username, email } = req.body;
+
+  let imageName = null;
+  let imageUrl = null;
+
   const userId = req.userId;
   if (!firstName || !lastName || !username || !email) {
     return res.status(400).json({ message: "bad request" });
   }
   try {
     const user = await Users.findByPk(userId);
+    console.log(user);
+    if (req.file) {
+      imageName = req.file.filename;
+      imageUrl = `${process.env.HOSTNAME}/${req.file.path}`;
+      fs.unlink(`public/images/${user.dataValues.imageName}`, (err) => {});
+    } else {
+      imageName = user.dataValues.imageName;
+      imageUrl = user.dataValues.imageUrl;
+    }
+
     if (!user) return res.status(404).json({ message: "user not found" });
     await user.update({
       firstName,
       lastName,
       username,
+      imageName,
+      imageUrl,
       email,
     });
     res.status(200).json({ message: "Profile updated" });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };

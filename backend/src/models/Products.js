@@ -5,11 +5,6 @@ import Users from "./Users.js";
 const Products = db.define(
   "Products",
   {
-    productId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     productName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -24,6 +19,10 @@ const Products = db.define(
     },
     category: {
       type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    imageName: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     imageUrl: {

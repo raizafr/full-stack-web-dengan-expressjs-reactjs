@@ -5,11 +5,6 @@ import Products from "./Products.js";
 const Carts = db.define(
   "Carts",
   {
-    cartId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,

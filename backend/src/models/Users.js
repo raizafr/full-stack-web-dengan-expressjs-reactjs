@@ -4,11 +4,6 @@ import db from "../config/database.js";
 const Users = db.define(
   "Users",
   {
-    userId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -25,6 +20,14 @@ const Users = db.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    imageName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     password: {
       type: DataTypes.STRING,
