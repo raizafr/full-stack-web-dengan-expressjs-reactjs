@@ -1,13 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import Logo from "../../public/assets/svg/logo.svg";
 import { HiOutlineHome } from "react-icons/hi";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
-import ModalChangePassword from "../components/modal/ModalChangePassword";
+import ModalSuccess from "../components/modal/ModalSuccess";
 const ChangePassword = () => {
-  const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -18,7 +17,7 @@ const ChangePassword = () => {
 
     try {
       const res = await axios.put(
-        "http://localhost:3000/api/v1/auth/changePassword",
+        `${import.meta.env.VITE_APP_BASEURL_API}/api/v1/auth/changePassword`,
         { currentPassword, newPassword, confirmNewPassword }
       );
       console.log(res);
@@ -30,7 +29,6 @@ const ChangePassword = () => {
       toast.warn(err.response.data.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
-      console.log(err);
     }
   };
   return (
@@ -118,7 +116,7 @@ const ChangePassword = () => {
             </div>
           </form>
         </div>
-        {isModal && <ModalChangePassword />}
+        {isModal && <ModalSuccess title="Change Password Successful" />}
       </div>
     </>
   );

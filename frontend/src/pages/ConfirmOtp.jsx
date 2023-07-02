@@ -38,7 +38,7 @@ const ConfirmOtp = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/auth/verifyOtp",
+        `${import.meta.env.VITE_APP_BASEURL_API}/api/v1/auth/verifyOtp`,
         {
           email: emailRegisterOtp,
           otpCode,

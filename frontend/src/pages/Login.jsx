@@ -13,10 +13,13 @@ const Login = () => {
     const password = e.target[1].value;
 
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_APP_BASEURL_API}/api/v1/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
       navigate("/");
       toast.success(res.data.message, {
         position: toast.POSITION.TOP_RIGHT,

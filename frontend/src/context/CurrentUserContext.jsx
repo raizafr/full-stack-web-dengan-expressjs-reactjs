@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useCallback } from "react";
 import { useEffect } from "react";
 import { createContext, useState } from "react";
 
@@ -12,6 +11,8 @@ const CurrentUserContextProvider = ({ children }) => {
       firstName: "",
       lastName: "",
       email: "",
+      imageName: "",
+      imageUrl: "",
     },
   });
 

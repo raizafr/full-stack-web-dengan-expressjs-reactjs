@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdOutlinePhotoCamera } from "react-icons/md";
 
-const InputFileImage = () => {
+const InputFileImage = ({ imageUrl }) => {
   const [previewImage, setPreviewImage] = useState(null);
 
   const handleImageChange = (event) => {
@@ -32,7 +32,7 @@ const InputFileImage = () => {
         ) : (
           <div className="flex justify-center py-2">
             <img
-              src="https://placehold.co/100x100.png"
+              src={imageUrl}
               alt="Preview"
               className="w-[100px] h-[100px] rounded-full cursor-pointer hover:-z-10 z-10"
             />

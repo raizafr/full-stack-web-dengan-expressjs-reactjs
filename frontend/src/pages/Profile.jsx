@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import Logo from "../../public/assets/svg/logo.svg";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { HiOutlineHome } from "react-icons/hi";
 import { useContext } from "react";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-
 import InputFileImage from "../components/InputFileImage";
+import ModalSuccess from "../components/modal/ModalSuccess";
 
 const Profile = () => {
+  const [isModal, setIsModal] = useState(false);
   const { currentUser, fetchDataUser } = useContext(CurrentUserContext);
   useEffect(() => {
     fetchDataUser();
@@ -21,6 +22,8 @@ const Profile = () => {
     lastName: "",
     username: "",
     email: "",
+    imageName: "",
+    imageUrl: "",
   });
 
   const handleChange = (event) => {
@@ -38,19 +41,31 @@ const Profile = () => {
     const lastName = e.target[2].value;
     const username = e.target[3].value;
     const email = e.target[4].value;
-    console.log(image, firstName, lastName, username, email);
 
     try {
-      const res = await axios.post("https://example.com/api/upload", {
-        image,
-        firstName,
-        lastName,
-        username,
-        email,
+      const res = await axios.put(
+        `${import.meta.env.VITE_APP_BASEURL_API}/api/v1/auth/editProfile`,
+        {
+          image,
+          firstName,
+          lastName,
+          username,
+          email,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setIsModal(true);
+      toast.success(res.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
       });
-      console.log(res);
     } catch (err) {
-      console.log(err);
+      toast.warn(err.response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
@@ -72,7 +87,9 @@ const Profile = () => {
       <div className="flex items-center justify-center p-3">
         <div className="mx-auto w-full max-w-[550px]">
           <form onSubmit={handleSubmit}>
-            <InputFileImage />
+            <InputFileImage
+              imageUrl={changeData.imageUrl || currentUser.user.imageUrl}
+            />
             <div className="-mx-3 flex flex-wrap">
               <div className="w-full px-3 sm:w-1/2">
                 <div className="mb-5">
@@ -161,6 +178,7 @@ const Profile = () => {
             </div>
           </form>
         </div>
+        {isModal && <ModalSuccess title="Change Data Successful" />}
       </div>
     </>
   );
