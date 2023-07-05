@@ -18,7 +18,9 @@ const CurrentUserContextProvider = ({ children }) => {
 
   const fetchDataUser = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/auth/user");
+      const res = await axios.get(
+        `${import.meta.env.VITE_APP_BASEURL_API}/api/v1/auth/user`
+      );
       setCurrentUser(res.data);
     } catch (err) {
       setCurrentUser(null);

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import Logo from "../../public/assets/svg/logo.svg";
-import { HiOutlineHome } from "react-icons/hi";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
@@ -36,11 +35,11 @@ const ChangePassword = () => {
       <nav>
         <div className="flex justify-around py-4 bg-white/80 backdrop-blur-md shadow-md w-full top-0 left-0 right-0 z-10">
           <div className="flex w-full justify-evenly items-center lg:px-10">
-            <Link to={"/"}>
-              <ReactSVG src={Logo} />
-            </Link>
-            <Link to={"/"}>
-              <HiOutlineHome className="scale-[1.7] hover:text-blue-400" />
+            <Link
+              to={"/"}
+              className="text-xl font-bold flex items-center gap-2"
+            >
+              <ReactSVG src={Logo} /> <p>|| Change Passoword</p>
             </Link>
           </div>
         </div>

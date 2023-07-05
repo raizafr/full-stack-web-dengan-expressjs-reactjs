@@ -5,9 +5,11 @@ import { GoPerson } from "react-icons/go";
 import { FiSearch } from "react-icons/fi";
 import { useState } from "react";
 import ModalProfile from "./modal/ModalProfile";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isModalProfile, setIsModalProfile] = useState(false);
+
   const handleClickProfile = () => {
     setIsModalProfile(!isModalProfile);
   };
@@ -41,9 +43,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center space-x-5">
-          <a className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
+          <Link
+            to={"/cart"}
+            className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300"
+          >
             <AiOutlineShoppingCart className="scale-125" />
-          </a>
+          </Link>
           <a className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300 font-semibold">
             <AiOutlineBell className="scale-125" />
           </a>

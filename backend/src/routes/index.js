@@ -25,6 +25,8 @@ import {
   getCarts,
   newCart,
 } from "../controllers/carts.js";
+import { newOder } from "../controllers/orders.js";
+import { newCheckOut } from "../controllers/checkout.js";
 
 const router = express.Router();
 
@@ -49,5 +51,11 @@ router.post("/api/v1/carts", verifyToken, newCart);
 router.get("/api/v1/carts", verifyToken, getCarts);
 router.get("/api/v1/carts/:cartId", verifyToken, getCart);
 router.delete("/api/v1/carts/:cartId", verifyToken, deleteCarts);
+
+// checkouts
+router.post("/api/v1/checkouts", verifyToken, newCheckOut);
+
+// order
+router.post("/api/v1/orders", verifyToken, newOder);
 
 export default router;

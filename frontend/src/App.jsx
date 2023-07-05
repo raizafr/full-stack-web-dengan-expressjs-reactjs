@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import ConfirmOtp from "./pages/ConfirmOtp";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
+import Cart from "./pages/Cart";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -20,6 +21,7 @@ function App() {
           <Route path="/confirmOtp" element={<ConfirmOtp />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/changePassword" element={<ChangePassword />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </>
     </>

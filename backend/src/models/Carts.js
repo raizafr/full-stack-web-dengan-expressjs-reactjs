@@ -5,11 +5,23 @@ import Products from "./Products.js";
 const Carts = db.define(
   "Carts",
   {
+    productName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    productImageName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    productImageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    price: {
+    pricePerProduct: {
       type: DataTypes.BIGINT,
       allowNull: false,
     },

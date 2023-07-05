@@ -42,13 +42,17 @@ const Register = () => {
       <nav>
         <div className="flex justify-around py-4 bg-white/80 backdrop-blur-md shadow-md w-full top-0 left-0 right-0 z-10">
           <div className="flex items-center">
-            <Link to={"/"}>
-              <ReactSVG src={Logo} />
+            <Link
+              to={"/"}
+              className="text-xl font-bold flex items-center gap-2"
+            >
+              <ReactSVG src={Logo} /> <p>|| Register</p>
             </Link>
           </div>
         </div>
       </nav>
       <ToastContainer />
+
       <div className="flex items-center justify-center p-3">
         <div className="mx-auto w-full max-w-[550px]">
           <form onSubmit={handleSubmit}>

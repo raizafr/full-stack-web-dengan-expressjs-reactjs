@@ -5,9 +5,24 @@ import { Op } from "sequelize";
 // controler newCart
 export const newCart = async (req, res) => {
   const userId = req.userId;
-  const { productId, quantity, price } = req.body;
+  const {
+    productId,
+    quantity,
+    pricePerProduct,
+    productName,
+    productImageName,
+    productImageUrl,
+  } = req.body;
 
-  if (!userId || !productId || !quantity || !price) {
+  if (
+    !userId ||
+    !productId ||
+    !quantity ||
+    !pricePerProduct ||
+    !productName ||
+    !productImageName ||
+    !productImageUrl
+  ) {
     return res.status(400).json({ message: "Bad request" });
   }
   try {
@@ -27,10 +42,13 @@ export const newCart = async (req, res) => {
         .json({ message: "Product is already in the cart" });
     }
     await Carts.create({
+      productName,
+      productImageName,
+      productImageUrl,
       userId,
       productId,
       quantity,
-      price,
+      pricePerProduct,
     });
     res.status(201).json({ message: "Added to cart" });
   } catch (err) {
