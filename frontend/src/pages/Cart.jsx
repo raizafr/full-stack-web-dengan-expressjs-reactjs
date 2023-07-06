@@ -4,10 +4,11 @@ import Logo from "../../public/assets/svg/logo.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CartCard from "../components/card/CartCard";
+import ModalCheckOut from "../components/modal/ModalCheckOut";
 
 const Cart = () => {
   const [carts, setCarts] = useState([]);
-
+  const [dataCheckOut, setDataCheckout] = useState(false);
   const getAllCart = async () => {
     try {
       const res = await axios.get(
@@ -22,6 +23,10 @@ const Cart = () => {
     getAllCart();
   }, []);
 
+  const handleClick = (cart, quantity) => {
+    setDataCheckout({ cart, quantity });
+  };
+  console.log(dataCheckOut);
   return (
     <>
       <nav>
@@ -40,24 +45,15 @@ const Cart = () => {
       <section className="h-screen bg-gray-100 px-4 antialiased space-y-5 md:space-x-10 flex flex-col items-center pt-2 md:flex-row md:items-start md:justify-center md:gap-5 b">
         <div className=" bg-white md:p-10 lg:px-24 p-3 rounded-md space-y-2">
           {carts.map((cart, key) => {
-            return <CartCard key={key} cart={cart} />;
+            return (
+              <div key={key}>
+                <CartCard cart={cart} propsHandleClik={handleClick} />;
+              </div>
+            );
           })}
         </div>
-
-        <div className="bg-white font-semibold rounded-3xl border shadow-lg p-10 max-w-xs">
-          <h1 className="text-lg text-gray-700"> Shoping detail </h1>
-          <h3 className="text-sm flex justify-between">
-            {" "}
-            <p className="text-gray-400">Total Price</p>
-            <p>Rp76.000</p>{" "}
-          </h3>
-          <div className="flex justify-center">
-            <button className="bg-indigo-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide">
-              CheckOut
-            </button>
-          </div>
-        </div>
       </section>
+      {/* <ModalCheckOut /> */}
     </>
   );
 };

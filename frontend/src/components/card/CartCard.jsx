@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { formatNumber } from "../utils/formatNumber";
 
-const CartCard = ({ cart }) => {
+const CartCard = ({ cart, propsHandleClik }) => {
   const [quantity, setQuantity] = useState(1);
   const handleClickPlus = () => {
     setQuantity(quantity + 1);
@@ -11,6 +12,7 @@ const CartCard = ({ cart }) => {
       setQuantity(quantity - 1);
     }
   };
+  // console.log(propsHandleClik);
   return (
     <div className="sm:w-[384px] sm:h-[148px] bg-white px-[32px] py-[16px] space-y-2 shadow-md rounded-lg cursor-pointer transition duration-300">
       <div className="flex item-center gap-4">
@@ -37,9 +39,12 @@ const CartCard = ({ cart }) => {
           Rp{cart.pricePerProduct}
         </h4>
         <h3 className="font-semibold flex gap-3 items-center">
-          <p>Rpharga</p>
-          <button className="text-sm bg-blue-400 text-white px-3 py-0.5 rounded-md hover:bg-blue-500">
-            Add to cart
+          <p>Rp{formatNumber(cart.pricePerProduct * quantity)}</p>
+          <button
+            className="text-sm bg-blue-400 text-white px-3 py-0.5 rounded-md hover:bg-blue-500"
+            onClick={() => propsHandleClik(cart, quantity)}
+          >
+            Checkout
           </button>
         </h3>
       </div>
