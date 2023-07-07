@@ -26,7 +26,10 @@ const Cart = () => {
   const handleClick = (cart, quantity) => {
     setDataCheckout({ cart, quantity });
   };
-  console.log(dataCheckOut);
+  const handleExitModalCheckout = () => {
+    setDataCheckout(false);
+  };
+
   return (
     <>
       <nav>
@@ -47,13 +50,18 @@ const Cart = () => {
           {carts.map((cart, key) => {
             return (
               <div key={key}>
-                <CartCard cart={cart} propsHandleClik={handleClick} />;
+                <CartCard cart={cart} handleClick={handleClick} />;
               </div>
             );
           })}
         </div>
       </section>
-      {/* <ModalCheckOut /> */}
+      {dataCheckOut && (
+        <ModalCheckOut
+          handleExitModalCheckout={handleExitModalCheckout}
+          dataCheckOut={dataCheckOut}
+        />
+      )}
     </>
   );
 };

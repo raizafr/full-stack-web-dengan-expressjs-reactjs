@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { formatNumber } from "../utils/formatNumber";
 
-const CartCard = ({ cart, propsHandleClik }) => {
+const CartCard = ({ cart, handleClick }) => {
   const [quantity, setQuantity] = useState(1);
   const handleClickPlus = () => {
     setQuantity(quantity + 1);
@@ -42,7 +42,7 @@ const CartCard = ({ cart, propsHandleClik }) => {
           <p>Rp{formatNumber(cart.pricePerProduct * quantity)}</p>
           <button
             className="text-sm bg-blue-400 text-white px-3 py-0.5 rounded-md hover:bg-blue-500"
-            onClick={() => propsHandleClik(cart, quantity)}
+            onClick={() => handleClick(cart, quantity)}
           >
             Checkout
           </button>
